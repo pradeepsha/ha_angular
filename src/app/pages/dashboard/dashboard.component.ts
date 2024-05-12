@@ -19,7 +19,7 @@ export class DashboardComponent {
 
   onRegister() {
  
-    this.http.post<any>('http://localhost:3000/auth/api/employee/sign-up', this.signUpObj).subscribe({
+    this.http.post<any>('https://hr-portal-nd68.onrender.com/auth/api/employee/sign-up', this.signUpObj).subscribe({
       next: (response) => {
         // Handle response accordingly
         if (response.status == 200) {
@@ -43,10 +43,9 @@ export class DashboardComponent {
   onLogin() {
 
     // Make HTTP POST request to your backend server
-    this.http.post<any>('http://localhost:3000/auth/api/employee/login', this.loginObj).subscribe({
+    this.http.post<any>('https://hr-portal-nd68.onrender.com/auth/api/employee/login', this.loginObj).subscribe({
       next: (response) => {
 
-        console.log(">>>>",response)
         // Handle response accordingly
         if (response.status == 200) {
           localStorage.setItem('loggedUser', JSON.stringify(response.response));
