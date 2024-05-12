@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,51 +16,80 @@ export class LoginComponent {
   signUpObj: SignUpModel  = new SignUpModel();
   loginObj: LoginModel  = new LoginModel();
 
-  constructor(private router: Router){}
+  constructor(private router: Router,private http: HttpClient){}
 
+
+  // onRegister() {
+
+  //   console.log(">>>>>>",this.signUpObj)
+  //   const localUser = localStorage.getItem('angular17users');
+  //   if(localUser != null) {
+  //     const users =  JSON.parse(localUser);
+  //     users.push(this.signUpObj);
+  //     localStorage.setItem('angular17users', JSON.stringify(users))
+  //   } else {
+  //     const users = [];
+  //     users.push(this.signUpObj);
+  //     localStorage.setItem('angular17users', JSON.stringify(users))
+  //   }
+  //   alert('Registration Success')
+  // }
 
   onRegister() {
-    debugger;
-    const localUser = localStorage.getItem('angular17users');
-    if(localUser != null) {
-      const users =  JSON.parse(localUser);
-      users.push(this.signUpObj);
-      localStorage.setItem('angular17users', JSON.stringify(users))
-    } else {
-      const users = [];
-      users.push(this.signUpObj);
-      localStorage.setItem('angular17users', JSON.stringify(users))
-    }
-    alert('Registration Success')
+ 
+    this.http.post<any>('http://localhost:3000/auth/api/employee/sign-up', this.signUpObj).subscribe({
+      next: (response) => {
+        // Handle response accordingly
+        if (response.status == 200) {
+          localStorage.setItem('loggedUser', JSON.stringify(response.response));
+          this.router.navigateByUrl('/dashboard');
+        }
+      },
+      error: (error: HttpErrorResponse) => { 
+        if (error.status === 400) {
+          if (error.error && error.error.response) {
+            alert(`${error.error.response[0].msg}`);
+          }
+        } else {
+          alert("An unexpected error occurred. Please try again later.");
+        }
+      }
+
+    });
   }
 
   onLogin() {
-    debugger;
-    const localUsers =  localStorage.getItem('angular17users');
-    if(localUsers != null) {
-      const users =  JSON.parse(localUsers);
 
-      const isUserPresent =  users.find( (user:SignUpModel)=> user.email == this.loginObj.email && user.password == this.loginObj.password);
-      if(isUserPresent != undefined) {
-        alert("User Found...");
-        localStorage.setItem('loggedUser', JSON.stringify(isUserPresent));
-        this.router.navigateByUrl('/dashboard');
-      } else {
-        alert("No User Found")
+    // Make HTTP POST request to your backend server
+    this.http.post<any>('http://localhost:3000/auth/api/employee/login', this.loginObj).subscribe({
+      next: (response) => {
+
+        console.log(">>>>",response)
+        // Handle response accordingly
+        if (response.status == 200) {
+          localStorage.setItem('loggedUser', JSON.stringify(response.response));
+          this.router.navigateByUrl('/dashboard');
+        }
+      },
+      error: (error) => {
+        console.error('There was an error!', error.error);
+        alert("invalid_credentials");
       }
-    }
+    });
   }
 
 }
 
 export class SignUpModel  {
-  name: string;
+  firstName: string;
   email: string;
+  phone:string;
   password: string;
 
   constructor() {
     this.email = "";
-    this.name = "";
+    this.phone = "";
+    this.firstName = "";
     this.password= ""
   }
 }

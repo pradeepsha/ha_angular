@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div class="parent"> 
+    <div class="container" [ngClass]="isSignDivVisiable ? 'active' :'' "   id="container">
+        <div class="form-container sign-up" >
+            <form>
+                <h2>Salary Details</h2>
+
+                <span>Enter your salary detail </span>
+                <input type="text" name="firstName" [(ngModel)]="signUpObj.firstName" placeholder="Basic Salary">
+                <input type="email" name="email" [(ngModel)]="signUpObj.email" placeholder="Education Loan">
+                <input type="text" name="phone" [(ngModel)]="signUpObj.phone" placeholder="Professional Tax">
+            
+                <button (click)="onRegister()">Caculate</button>
+            </form>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back HR Portal</h1>
+                    <p>Enter your salary details to use all of HR Portal</p>
+                  
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Welcome Back HR Portal</h1>
+                    <p>Enter Your Salary details to use all of HR Portal</p>
+                    <button type="button" class="hidden" id="register" >Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
