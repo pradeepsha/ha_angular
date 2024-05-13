@@ -1,16 +1,45 @@
 <div class="parent"> 
     <div class="container" [ngClass]="isSignDivVisiable ? 'active' :'' "   id="container">
         <div class="form-container sign-up" >
-            <form>
-                <h2>Salary Details</h2>
+            <form #form="ngForm" *ngIf="isFormDivVisible" [ngClass]="isFormDivVisible ? 'active' : ''"  >
+                <h2>Salary Details</h2><br>
 
-                <span>Enter your salary detail </span>
-                <input type="text" name="firstName" [(ngModel)]="signUpObj.firstName" placeholder="Basic Salary">
-                <input type="email" name="email" [(ngModel)]="signUpObj.email" placeholder="Education Loan">
-                <input type="text" name="phone" [(ngModel)]="signUpObj.phone" placeholder="Professional Tax">
-            
-                <button (click)="onRegister()">Caculate</button>
+                <span style="margin-right: 190px; color: red;font-weight: bold">Basic Salary </span>
+                <input type="text" name="firstName" [(ngModel)]="signUpObj.basic_salary" placeholder="Basic Salary" required="true">
+                <span style="margin-right: 170px; color: red;font-weight: bold">Education Loan</span>
+                <input type="email" name="email" [(ngModel)]="signUpObj.loan" placeholder="Education Loan">
+                <span style="margin-right: 170px; color: red;font-weight: bold">Professional Tax</span>
+                
+                <input type="text" name="phone" [(ngModel)]="signUpObj.tax" placeholder="Professional Tax">
+         
+                <button (click)="addNumbers()">Caculate</button>
+
+
+                
             </form>
+
+            <!-- <div class="salary-details">
+                <span> Basic Salary: {{signUpObj.basic_salary}}</span><br>
+                <span> Total Detuction {{total_detuction}} </span><br>
+                <span> Net Pay: {{ net_pay}}</span>
+                <button (click)="pay()">Pay Salary</button>
+            </div> -->
+            <table class="salary-details">
+                <tr>
+                    <td>Basic Salary:</td>
+                    <td>{{ signUpObj.basic_salary }}</td>
+                </tr>
+                <tr>
+                    <td>Total Deduction:</td>
+                    <td>{{ total_detuction }}</td>
+                </tr>
+                <tr>
+                    <td>Net Pay:</td>
+                    <td>{{ net_pay }}</td>
+                </tr>
+            </table>
+            <button style="margin-left: 170px;" (click)="pay()">Pay Salary</button>
+            
         </div>
 
         <div class="toggle-container">

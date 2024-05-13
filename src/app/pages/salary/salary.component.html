@@ -1,0 +1,32 @@
+
+
+  <body>
+    <div class="container">
+    
+        <table class="my-table">
+          
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Basic Salary</th>
+                <th>Net Pay</th>
+                <th>Total Deduction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of array">
+                <td>{{ item.firstName }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.basic_salary }}</td>
+                <td>{{ item.net_pay }}</td>
+                <td>{{ item.total_detuction }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </body>
+
+  
+  
+  

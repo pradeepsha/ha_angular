@@ -7,14 +7,17 @@ import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+// import { SalaryComponent } from './app/salary/salary.component'; 
+import { SalaryComponent } from './pages/salary/salary.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LayoutComponent,
-    DashboardComponent
+    DashboardComponent,
+    SalaryComponent
   ],
   imports: [
     BrowserModule,

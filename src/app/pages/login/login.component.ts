@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 
+// let URL = "https://hr-portal-nd68.onrender.com";
+let URL = "http://localhost:3000";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,7 +40,7 @@ export class LoginComponent {
 
   onRegister() {
  
-    this.http.post<any>('https://hr-portal-nd68.onrender.com/auth/api/employee/sign-up', this.signUpObj).subscribe({
+    this.http.post<any>(`${URL}/auth/api/employee/sign-up`, this.signUpObj).subscribe({
       next: (response) => {
         // Handle response accordingly
         if (response.status == 200) {
@@ -61,7 +64,7 @@ export class LoginComponent {
   onLogin() {
 
     // Make HTTP POST request to your backend server
-    this.http.post<any>('https://hr-portal-nd68.onrender.com/auth/api/employee/login', this.loginObj).subscribe({
+    this.http.post<any>(`${URL}/auth/api/employee/login`, this.loginObj).subscribe({
       next: (response) => {
 
         console.log(">>>>",response)
